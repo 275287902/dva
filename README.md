@@ -17,6 +17,24 @@ Lightweight elm-style framework based on react and redux.
 - [subscription 及其适用场景](https://github.com/dvajs/dva/issues/3#issuecomment-229250708)
 - [支付宝前端应用架构的发展和选择: 从 roof 到 redux 再到 dva](https://github.com/sorrycc/blog/issues/6)
 
+## Features
+
+- based on redux, redux-saga and react-router
+- **small api:** only 5 methods
+- **transparent side effects:** using effects and subscriptions brings clarity to IO
+- **mobile and react-native support:** don't need router
+- **dynamic model and router:** split large scale app on demand
+- **plugin system:** with hooks
+- **hmr support:** components and routes is ready
+
+## Demos
+
+- [HackerNews](https://dvajs.github.io/dva-hackernews/) ([repo](https://github.com/dvajs/dva-hackernews), [intro](https://github.com/sorrycc/blog/issues/9))
+- [Count](./examples/count) ([jsfiddle](https://jsfiddle.net/puftw0ea/))
+- [Popular Products](./examples/popular-products)
+- [Friend List](./examples/friend-list)
+- [User Dashboard](./examples/user-dashboard)
+
 ## Getting Started
 
 ### Install
@@ -25,7 +43,7 @@ Lightweight elm-style framework based on react and redux.
 $ npm install --save dva
 ```
 
-### Usage Example
+### Example
 
 Let's create an count app that changes when user click the + or - button. 
 
@@ -42,8 +60,8 @@ app.model({
   namespace: 'count',
   state: 0,
   reducers: {
-    ['count/add'  ](count) { return count + 1 },
-    ['count/minus'](count) { return count - 1 },
+    add  (count) { return count + 1 },
+    minus(count) { return count - 1 },
   },
 });
 
@@ -54,7 +72,7 @@ const App = connect(({ count }) => ({
   return (
     <div>
       <h2>{ props.count }</h2>
-      <button key="add" onClick={() => { props.dispatch({type: 'count/add'})}}>+</button>
+      <button key="add" onClick={()   => { props.dispatch({type: 'count/add'})}}>+</button>
       <button key="minus" onClick={() => { props.dispatch({type: 'count/minus'})}}>-</button>
     </div>
   );
@@ -68,21 +86,18 @@ app.router(({ history }) =>
 );
 
 // 5. Start
-app.start(document.getElementById('root'));
+app.start('#root');
 ```
-
-## Examples
-
-- [Count](./examples/count) ([jsfiddle](https://jsfiddle.net/puftw0ea/))
-- [Popular Products](./examples/popular-products)
-- [Friend List](./examples/friend-list)
-- [User Dashboard](./examples/user-dashboard)
 
 ## FAQ
 
-### dva 命名的来历 ?
+### Why is it called dva?
 
-dva 是守望先锋 (overwatch) 里的[英雄](http://ow.blizzard.cn/heroes/dva)。我喜欢使用这个角色，拥有强大的机甲，是个坚实的肉盾，并且她是唯一背景是真实的电竞选手，来自韩国。
+dva is a hero from [overwatch](http://ow.blizzard.cn/heroes/dva). She is cute, and `dva` is the shortest one that is available on npm.
+
+### Is it production ready?
+
+Yes.
 
 ## License
 
